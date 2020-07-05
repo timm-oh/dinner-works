@@ -1,5 +1,7 @@
 class RegistrationsController < ApplicationController
 
+  layout 'landing'
+
   def new
     @registration = Registration.new
   end
