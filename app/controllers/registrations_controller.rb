@@ -1,5 +1,8 @@
 class RegistrationsController < ApplicationController
-  layout false
+
+  def new
+    @registration = Registration.new
+  end
 
   def create
     @registration = Registration.find_or_create_by(permitted_params)
