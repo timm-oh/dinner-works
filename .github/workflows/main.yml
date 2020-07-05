@@ -1,0 +1,120 @@
+name: Rails Unit Tests
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    services:
+      db:
+        image: postgres:12
+        ports: ['5432:5432']
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: dinner-works_test
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Ruby 2.7
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 2.7.1
+
+#     https://dev.to/codefund/ci-for-ruby-on-rails-github-actions-3mn1
+    - name: Yarn Cache
+      id: yarn-cache
+      run: echo "::set-output name=dir::$(yarn cache dir)"
+
+    - name: Node Modules Cache
+      id: node-modules-cache
+      uses: actions/cache@v1
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-yarn-dinner-works-v1-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-yarn-dinner-works-v1-${{ env.cache-name }}-
+          ${{ runner.os }}-yarn-dinner-works-
+          ${{ runner.os }}-yarn-
+    - name: Gem Cache
+      uses: actions/cache@v1
+      with:
+        path: vendor/bundle
+        key: ${{ runner.os }}-dinner-works-v1-${{ env.cache-name }}-${{ hashFiles('**/Gemfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-dinner-works-v1-${{ env.cache-name }}-
+          ${{ runner.os }}-dinner-works-v1-
+          ${{ runner.os }}-dinner-works-
+          ${{ runner.os }}-
+    - name: Assets Cache
+      id: assets-cache
+      uses: actions/cache@v1
+      with:
+        path: public/packs-test
+        key: ${{ runner.os }}-assets-dinner-works-v1-${{ env.cache-name }}-${{ steps.extract_branch.outputs.branch }}
+        restore-keys: |
+          ${{ runner.os }}-assets-dinner-works-v1-${{ env.cache-name }}-${{ steps.extract_branch.outputs.branch }}
+          ${{ runner.os }}-assets-dinner-works-v1-${{ env.cache-name }}-
+          ${{ runner.os }}-assets-dinner-works-v1-
+          ${{ runner.os }}-assets-dinner-works-
+          ${{ runner.os }}-assets-
+    # - name: "Update package manager"
+    #   run: sudo apt-get update
+
+    # Not required because we aren't running system tests yet
+    # - name: 'Install Chrome'
+    #   run: |
+    #     sudo wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+    #     sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+    #     sudo apt-get install google-chrome-unstable python-pip python-dev build-essential xvfb
+
+    - name: Install PostgreSQL 12 client
+      run: |
+        sudo bash -c "echo deb http://apt.postgresql.org/pub/repos/apt/ bionic-pgdg main >> /etc/apt/sources.list.d/pgdg.list"
+        wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+        sudo apt-get update
+        sudo apt-get -yqq install libpq-dev postgresql-client-12
+
+    - name : Install Gems
+      run: |
+        gem install bundler
+        RUBYOPT='-W:no-deprecated -W:no-experimental' bundle config path vendor/bundle
+        RUBYOPT='-W:no-deprecated -W:no-experimental' bundle check || bundle install --jobs 4 --retry 3
+
+    - name: Yarn Install
+      run: yarn check || bin/rails yarn:install
+
+    - name: Assets Precompile
+      run: RUBYOPT='-W:no-deprecated -W:no-experimental' bundle exec bin/rails assets:precompile
+
+    - name: Setup Database
+      env:
+        PGHOST: 127.0.0.1
+        PGUSER: postgres
+        PGPASSWORD: postgres
+        RAILS_ENV: test
+      run: RUBYOPT='-W:no-deprecated -W:no-experimental' bundle exec bin/rails db:create db:schema:load --trace
+
+    - name: Run Tests
+      env:
+        PGHOST: 127.0.0.1
+        PGUSER: postgres
+        PGPASSWORD: postgres
+        RAILS_ENV: test
+      run: |
+        RUBYOPT='-W:no-deprecated -W:no-experimental' bundle exec rails test
+        # RUBYOPT='-W:no-deprecated -W:no-experimental' bundle exec bin/rails test:system
+
+    - name: Zeitwerk Check
+      run: bundle exec bin/rails zeitwerk:check
+
+    - name: Display test logs
+      if: ${{ failure() }}
+      run: cat log/test.log
