@@ -26,7 +26,6 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
       }
     end
     assert_response :success
-    assert flash[:alert].present?
   end
 
 end

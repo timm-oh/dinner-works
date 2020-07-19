@@ -12,7 +12,6 @@ class RegistrationsController < ApplicationController
       RegistrationMailer.with(registration: @registration).welcome.deliver_now
       redirect_to root_path, notice: 'Thanks for signing up!'
     else
-      flash.now[:alert] = @registration.errors.full_messages.join(". ")
       render :new
     end
   end
