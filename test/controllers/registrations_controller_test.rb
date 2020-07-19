@@ -6,7 +6,7 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should get create" do
+  test "POST create with valid email" do
     assert_difference 'Registration.count', +1 do
       post registrations_path, params: {
         registration: {
@@ -15,6 +15,18 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
       }
     end
     assert_redirected_to root_path
+  end
+
+  test "POST create with invalid email" do
+    assert_no_difference 'Registration.count' do
+      post registrations_path, params: {
+        registration: {
+          email: 'testsample.com'
+        }
+      }
+    end
+    assert_response :success
+    assert flash[:alert].present?
   end
 
 end

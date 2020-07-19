@@ -9,6 +9,7 @@ section.hero.is-primary.is-bold.is-medium.is-fullheight
           | Sign up to learn more
         .box
           = form_with(model: @registration) do |form|
+            = form.label :email, class: 'is-hidden'
             .field
               .control
                 = form.text_field :email, class: 'input', type: 'email', placeholder: 'hello@batman.com', required: 'required'
@@ -18,3 +19,7 @@ section.hero.is-primary.is-bold.is-medium.is-fullheight
             .notification.is-info.mt-3 data={ controller: 'notification' }
               button.delete data={ action: 'click->notification#close' }
               = notice
+          - if alert
+            .notification.is-warning.mt-3 data={ controller: 'notification' }
+              button.delete data={ action: 'click->notification#close' }
+              = alert
