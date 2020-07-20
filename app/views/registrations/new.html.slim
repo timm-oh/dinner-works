@@ -3,13 +3,12 @@ section.hero.is-primary.is-bold.is-medium.is-fullheight
     .container.has-text-centered
       .column.is-6.is-offset-3
         h1.title
-          | Food delivery with a purpose
+          | #{@copy}
         hr
         h2.subtitle
           | Sign up to learn more
         .box
           = form_with(model: @registration) do |form|
-            = form.label :email, class: 'is-hidden'
             .field
               .control
                 = form.text_field :email, class: 'input', type: 'email', placeholder: 'hello@batman.com', required: 'required'

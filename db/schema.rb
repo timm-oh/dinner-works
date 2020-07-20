@@ -10,11 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_05_021230) do
+ActiveRecord::Schema.define(version: 2020_07_20_152125) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
+
+  create_table "field_test_memberships", force: :cascade do |t|
+    t.string "participant_type"
+    t.string "participant_id"
+    t.string "experiment"
+    t.string "variant"
+    t.datetime "created_at"
+    t.boolean "converted", default: false
+    t.index ["experiment", "created_at"], name: "index_field_test_memberships_on_experiment_and_created_at"
+    t.index ["participant_type", "participant_id", "experiment"], name: "index_field_test_memberships_on_participant", unique: true
+  end
 
   create_table "registrations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "email"
