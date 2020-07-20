@@ -21,6 +21,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 
 group :development, :test do
   gem 'pry'
+  gem "bullet", "~> 6.1"
 end
 
 group :development do
@@ -39,7 +40,7 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem "slim-rails", "~> 3.2"
-
 gem "field_test", "~> 0.3.2"
-
 gem "strong_migrations", "~> 0.6.8"
+
+gem "sentry-raven", "~> 3.0"
