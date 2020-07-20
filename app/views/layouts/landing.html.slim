@@ -8,6 +8,14 @@ html lang="#{I18n.locale}"
     meta name="viewport" content="width=device-width, initial-scale=1.0"
     = stylesheet_pack_tag('application', media: 'all', 'data-turbolinks-track': 'reload')
     = javascript_pack_tag('application', 'data-turbolinks-track': 'reload', async: '')
+    - if Rails.env.production?
+      = javascript_include_tag("https://www.googletagmanager.com/gtag/js?id=UA-173065380-1", async: '')
+      javascript:
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){ dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-173065380-1');
 
   body
     = yield
