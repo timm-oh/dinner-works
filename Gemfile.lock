@@ -58,6 +58,9 @@ GEM
       zeitwerk (~> 2.2, >= 2.2.2)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
+    barnes (0.0.8)
+      multi_json (~> 1)
+      statsd-ruby (~> 1.1)
     bindex (0.8.1)
     bootsnap (1.4.6)
       msgpack (~> 1.0)
@@ -108,6 +111,7 @@ GEM
     mini_portile2 (2.4.0)
     minitest (5.14.1)
     msgpack (1.3.3)
+    multi_json (1.15.0)
     multipart-post (2.1.1)
     nio4r (2.5.2)
     nokogiri (1.10.9)
@@ -173,6 +177,7 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    statsd-ruby (1.4.0)
     strong_migrations (0.6.8)
       activerecord (>= 5)
     temple (0.8.2)
@@ -210,6 +215,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  barnes (~> 0.0.8)
   bootsnap (>= 1.4.2)
   bullet (~> 6.1)
   capybara (>= 2.15)
