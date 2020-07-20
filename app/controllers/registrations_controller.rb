@@ -3,12 +3,14 @@ class RegistrationsController < ApplicationController
   layout 'landing'
 
   def new
+    @copy = field_test(:registration_copy)
     @registration = Registration.new
   end
 
   def create
     @registration = Registration.find_or_create_by(permitted_params)
     if @registration.save
+      field_test_converted(:registration_copy)
       RegistrationMailer.with(registration: @registration).welcome.deliver_now
       redirect_to root_path, notice: 'Thanks for signing up!'
     else
