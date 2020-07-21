@@ -1,10 +1,9 @@
 class AddTokenAndCounterToRegistration < ActiveRecord::Migration[6.0]
   def change
     add_column :registrations, :referral_count, :integer
-    add_column :registrations, :referral_token, :string
+    change_column_default :registrations, :referral_count, to: 0, from: nil
 
     commit_db_transaction
-    add_reference :registrations, :parent, index: { algorithm: :concurrently }
-    add_index :registrations, :referral_token, algorithm: :concurrently, unique: :true
+    add_reference :registrations, :parent, type: :uuid, index: { algorithm: :concurrently }
   end
 end

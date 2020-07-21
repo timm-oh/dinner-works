@@ -31,12 +31,10 @@ ActiveRecord::Schema.define(version: 2020_07_21_184026) do
     t.string "email"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "referral_count"
-    t.string "referral_token"
-    t.bigint "parent_id"
+    t.integer "referral_count", default: 0
+    t.uuid "parent_id"
     t.index ["email"], name: "index_registrations_on_email", unique: true
     t.index ["parent_id"], name: "index_registrations_on_parent_id"
-    t.index ["referral_token"], name: "index_registrations_on_referral_token", unique: true
   end
 
 end
