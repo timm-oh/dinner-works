@@ -4,7 +4,7 @@ class RegistrationsController < ApplicationController
 
   def new
     @copy = field_test(:registration_copy)
-    @registration = Registration.new(parent_id: params[:parent_id])
+    @registration = Registration.new(params.permit(:parent_id))
   end
 
   def create
