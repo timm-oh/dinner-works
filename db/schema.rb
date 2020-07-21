@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_20_152125) do
+ActiveRecord::Schema.define(version: 2020_07_21_184026) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -31,7 +31,10 @@ ActiveRecord::Schema.define(version: 2020_07_20_152125) do
     t.string "email"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "referral_count", default: 0
+    t.uuid "parent_id"
     t.index ["email"], name: "index_registrations_on_email", unique: true
+    t.index ["parent_id"], name: "index_registrations_on_parent_id"
   end
 
 end
