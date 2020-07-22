@@ -1,0 +1,23 @@
+h1 Listing stores
+
+table
+  thead
+    tr
+      th Name
+      th Location
+      th
+      th
+      th
+
+  tbody
+    - @stores.each do |store|
+      tr
+        td = store.name
+        td = store.location
+        td = link_to 'Show', [:admin, store]
+        td = link_to 'Edit', edit_admin_store_path(store)
+        td = link_to 'Destroy', [:admin, store], data: { confirm: 'Are you sure?' }, method: :delete
+
+br
+
+= link_to 'New Store', new_admin_store_path
