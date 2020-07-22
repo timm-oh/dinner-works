@@ -1,0 +1,21 @@
+h1 Listing admin_products
+
+table
+  thead
+    tr
+      th Name
+      th
+      th
+      th
+
+  tbody
+    - @products.each do |product|
+      tr
+        td = product.name
+        td = link_to 'Show', [:admin, product]
+        td = link_to 'Edit', edit_admin_product_path(product)
+        td = link_to 'Destroy', [:admin, product], data: { confirm: 'Are you sure?' }, method: :delete
+
+br
+
+= link_to 'New Product', new_admin_store_product_path(@store)
