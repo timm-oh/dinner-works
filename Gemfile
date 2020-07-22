@@ -46,3 +46,5 @@ gem "strong_migrations", "~> 0.6.8"
 gem "sentry-raven", "~> 3.0"
 
 gem "barnes", "~> 0.0.8"
+
+gem "devise", "~> 4.7"
