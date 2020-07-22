@@ -10,4 +10,7 @@ html lang="#{I18n.locale}"
     = javascript_pack_tag('application', 'data-turbolinks-track': 'reload', async: '')
 
   body
+    .notice = notice
+    .alert = alert
+
     = yield
