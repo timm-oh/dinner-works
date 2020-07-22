@@ -6,8 +6,15 @@ ruby '2.7.1'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.2'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 4'
+
+# Frontend
 gem 'webpacker', '~> 5'
 gem 'turbolinks', '~> 5'
+gem "slim-rails", "~> 3.2"
+
+# Authentication
+gem "devise", "~> 4.7"
+
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
@@ -18,6 +25,19 @@ gem 'turbolinks', '~> 5'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
+
+# Feature Flags
+gem "flipper", "~> 0.18.0"
+gem "flipper-active_record", "~> 0.18.0"
+gem "flipper-ui", "~> 0.18.0"
+
+# User Tracking
+gem "field_test", "~> 0.3.2"
+
+# Application Tools
+gem "sentry-raven", "~> 3.0"
+gem "barnes", "~> 0.0.8"
+gem "strong_migrations", "~> 0.6.8"
 
 group :development, :test do
   gem 'pry'
@@ -38,13 +58,3 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-
-gem "slim-rails", "~> 3.2"
-gem "field_test", "~> 0.3.2"
-gem "strong_migrations", "~> 0.6.8"
-
-gem "sentry-raven", "~> 3.0"
-
-gem "barnes", "~> 0.0.8"
-
-gem "devise", "~> 4.7"
