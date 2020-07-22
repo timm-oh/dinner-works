@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
 
   namespace :admin do
-    resources :stores
+    resources :stores do
+      resources :products, shallow: true
+    end
   end
 
   root to: 'registrations#new'
