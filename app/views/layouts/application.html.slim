@@ -20,16 +20,19 @@ html lang="#{I18n.locale}"
           span aria-hidden="true"
 
       .navbar-menu data={ target: 'toggle.toggle' }
+        .navbar-start
+          .navbar-item
+            = link_to "Stores", admin_stores_path, class: 'button'
         .navbar-end
           .navbar-item
             .buttons
               - if !current_user
-                = link_to new_user_session_path, class: 'button is-primary' do
+                = link_to new_user_registration_path, class: 'button is-primary' do
                   strong Sign Up
-                a.button.is-light
+                = link_to new_user_session_path, class: 'button is-light' do
                   | Log in
               - else
-                = link_to destroy_user_session_path, class: 'button is-primary' do
+                = link_to destroy_user_session_path, method: :delete, class: 'button is-primary' do
                   | Log out
 
 

@@ -1,0 +1,12 @@
+p#notice = notice
+
+p
+  strong Name:
+  = @store.name
+p
+  strong Location:
+  = @store.location
+
+=> link_to 'Edit', edit_admin_store_path(@store)
+'|
+=< link_to 'Back', admin_stores_path
