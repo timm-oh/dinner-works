@@ -14,7 +14,8 @@ Rails.application.routes.draw do
   resources :registrations, only: [:new, :create, :show]
 
   authenticate :user, ->(user) { user.admin? } do
-    mount FieldTest::Engine, at: "field_test"
+    mount FieldTest::Engine, at: 'field_test'
     mount Flipper::UI.app(FeatureFlags) => '/flipper'
+    mount Blazer::Engine, at: 'blazer'
   end
 end
