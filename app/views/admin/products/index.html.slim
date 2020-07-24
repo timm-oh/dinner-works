@@ -1,24 +1,16 @@
 h1 Listing #{@store.name} products
 
-table
-  thead
-    tr
-      th Name
-      th Cost
-      th Description
-      th
-      th
-      th
-
-  tbody
-    - @products.each do |product|
-      tr
-        td = product.name
-        td = product.cost.format
-        td = product.description
-        td = link_to 'Show', [:admin, product]
-        td = link_to 'Edit', edit_admin_product_path(product)
-        td = link_to 'Destroy', [:admin, product], data: { confirm: 'Are you sure?' }, method: :delete
+ol data={ controller: 'sortable', 'sortable-handle': '.sort-handle' }
+  - @products.each do |product|
+    li
+      div
+        span.sort-handle
+        span = product.name
+        span = product.cost.format
+        span = product.description
+        span = link_to 'Show', [:admin, product]
+        span = link_to 'Edit', edit_admin_product_path(product)
+        span = link_to 'Destroy', [:admin, product], data: { confirm: 'Are you sure?' }, method: :delete
 
 br
 
