@@ -7,8 +7,8 @@ module Admin
     end
 
     # before_action :set_store
-    # after_action :verify_authorized, except: :index
-    # after_action :verify_policy_scoped, only: :index
+    after_action :verify_authorized, except: :index
+    after_action :verify_policy_scoped, only: :index
 
     # after_action :update_last_visited_store
 

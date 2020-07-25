@@ -3,7 +3,7 @@ module Admin
     before_action :set_store, only: [:show, :edit, :update, :destroy]
 
     def index
-      @stores = Store.all
+      @stores = policy_scope(Store).all
     end
 
     def show
@@ -11,6 +11,7 @@ module Admin
 
     def new
       @store = Store.new
+      authorize @store
     end
 
     def edit
@@ -18,6 +19,7 @@ module Admin
 
     def create
       @store = Store.new(store_params)
+      authorize @store
 
       if @store.save
         redirect_to [:admin, @store], notice: 'Store was successfully created.'
@@ -42,7 +44,8 @@ module Admin
     private
 
     def set_store
-      @store = Store.find(params[:id])
+      @store = policy_scope(Store).find(params[:id])
+      authorize @store
     end
 
     def store_params
