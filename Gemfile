@@ -39,7 +39,7 @@ gem "field_test", "~> 0.3.2"
 # Application Tools
 gem "sentry-raven", "~> 3.0"
 gem "barnes", "~> 0.0.8"
-gem "strong_migrations", "~> 0.6.8"
+gem "strong_migrations", "~> 0.7"
 
 group :development, :test do
   gem 'pry'
@@ -64,3 +64,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem "money-rails", "~> 1.13"
 
 gem "blazer", "~> 2.2"
+
+gem "view_component", "~> 2.17"
