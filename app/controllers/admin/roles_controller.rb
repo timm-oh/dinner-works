@@ -1,6 +1,5 @@
 module Admin
-  class RolesController < ApplicationController
-    before_action :set_store
+  class RolesController < StoreController
     before_action :set_role, only: [:show, :edit, :update, :destroy]
 
     def index
@@ -45,10 +44,6 @@ module Admin
     end
 
     private
-
-    def set_store
-      @store = policy_scope(Store).find(params[:store_id])
-    end
 
     def set_role
       @role = policy_scope(@store.roles).find(params[:id])

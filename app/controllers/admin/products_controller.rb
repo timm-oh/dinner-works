@@ -1,10 +1,10 @@
 module Admin
-  class ProductsController < ApplicationController
-    before_action :set_store
+  class ProductsController < StoreController
     before_action :set_product, only: [:show, :edit, :update, :destroy]
 
     def index
       @products = @store.products.all.ordered_by_position
+      authorize @products
     end
 
     def show
@@ -56,10 +56,6 @@ module Admin
     end
 
     private
-
-    def set_store
-      @store = policy_scope(Store).find(params[:store_id])
-    end
 
     def set_product
       @product = policy_scope(@store.products).find(params[:id])

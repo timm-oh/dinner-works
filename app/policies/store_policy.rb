@@ -1,6 +1,6 @@
 class StorePolicy < ApplicationPolicy
   def index?
-    super || @user.admin?
+    true
   end
 
   def show?
