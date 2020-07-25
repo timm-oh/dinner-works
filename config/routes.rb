@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :stores do
-      resources :products, shallow: true
+      resources :products
     end
   end
 

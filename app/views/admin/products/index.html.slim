@@ -8,9 +8,9 @@ ol data={ controller: 'sortable', 'sortable-handle': '.sort-handle' }
         span = product.name
         span = product.cost.format
         span = product.description
-        span = link_to 'Show', [:admin, product]
-        span = link_to 'Edit', edit_admin_product_path(product)
-        span = link_to 'Destroy', [:admin, product], data: { confirm: 'Are you sure?' }, method: :delete
+        span = link_to 'Show', [:admin, @store, product]
+        span = link_to 'Edit', [:edit, :admin, @store, product]
+        span = link_to 'Destroy', admin_store_product_path(@store, product), data: { confirm: 'Are you sure?' }, method: :delete
 
 br
 

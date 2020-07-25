@@ -10,4 +10,29 @@ html lang="#{I18n.locale}"
     = javascript_pack_tag('application', 'data-turbolinks-track': 'reload', async: '')
 
   body
+    nav.navbar aria-label="main navigation" role="navigation" data={ controller: 'toggle', 'toggle-class': 'is-active'}
+      .navbar-brand
+        = link_to "Home", root_url, class: 'navbar-item'
+
+        a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data={ action: 'click->toggle#toggle' }
+          span aria-hidden="true"
+          span aria-hidden="true"
+          span aria-hidden="true"
+
+      .navbar-menu data={ target: 'toggle.toggle' }
+        .navbar-start
+          .navbar-item
+            = link_to "Admin", admin_stores_path, class: 'button'
+        .navbar-end
+          .navbar-item
+            .buttons
+              - if !current_user
+                = link_to new_user_registration_path, class: 'button is-primary' do
+                  strong Sign Up
+                = link_to new_user_session_path, class: 'button is-light' do
+                  | Log in
+              - else
+                = link_to destroy_user_session_path, method: :delete, class: 'button is-primary' do
+                  | Log out
+
     = yield

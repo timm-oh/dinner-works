@@ -1,5 +1,5 @@
 = render 'layouts/base' do
-  .columns.is-fullheight
+  .columns
     .column.is-2.is-sidebar-menu
       aside.menu
         - if current_user.admin?
@@ -13,7 +13,7 @@
               = link_to "All Stores", admin_stores_path, class: "#{current_page?(admin_stores_path) ? 'is-active' : ''}"
         - if @store && @store.persisted?
           p.menu-label
-            | General
+            | #{@store.name}
           ul.menu-list
             li
               = link_to "Dashboard", admin_store_path(@store), class: "#{current_page?(admin_store_path(@store)) ? 'is-active' : ''}"
@@ -27,13 +27,5 @@
             /   a Orders
             / li
             /   a Settlements
-        p.menu-label
-          | Settings
-        ul.menu-list
-          li
-            a Profile
-          li
-            = link_to destroy_user_session_path, method: :delete do
-              | Log out
     .column.is-main-content
       = yield

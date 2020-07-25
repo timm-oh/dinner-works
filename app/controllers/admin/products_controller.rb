@@ -1,6 +1,6 @@
 module Admin
   class ProductsController < ApplicationController
-    before_action :set_store, only: [:index, :create, :new]
+    before_action :set_store
     before_action :set_product, only: [:show, :edit, :update, :destroy]
 
     def index
@@ -21,7 +21,7 @@ module Admin
       @product = @store.products.new(product_params)
 
       if @product.save
-        redirect_to [:admin, @product], notice: 'Product was successfully created.'
+        redirect_to [:admin, @store, @product], notice: 'Product was successfully created.'
       else
         render :new
       end
@@ -29,7 +29,7 @@ module Admin
 
     def update
       if @product.update(product_params)
-        redirect_to [:admin, @product], notice: 'Product was successfully updated.'
+        redirect_to [:admin, @store, @product], notice: 'Product was successfully updated.'
       else
         render :edit
       end
@@ -37,7 +37,7 @@ module Admin
 
     def destroy
       @product.destroy
-      redirect_to admin_store_products_url(@product.store), notice: 'Product was successfully destroyed.'
+      redirect_to admin_store_products_url(@store), notice: 'Product was successfully destroyed.'
     end
 
     private
@@ -47,7 +47,7 @@ module Admin
     end
 
     def set_product
-      @product = @store ? @store.products.find(params[:id]) : Product.find(params[:id])
+      @product = @store.products.find(params[:id])
     end
 
     def product_params
