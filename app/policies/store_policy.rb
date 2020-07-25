@@ -1,30 +1,14 @@
 class StorePolicy < ApplicationPolicy
   def index?
-    @user.admin?
+    true
   end
 
   def show?
-    @user.admin?
-  end
-
-  def create?
-    @user.admin?
-  end
-
-  def new?
-    create?
+    true
   end
 
   def update?
-    @user.admin?
-  end
-
-  def edit?
-    update?
-  end
-
-  def destroy?
-    @user.admin?
+    true
   end
 
   class Scope < Scope
@@ -32,7 +16,7 @@ class StorePolicy < ApplicationPolicy
       if @user.admin?
         scope.all
       else
-        scope.none
+        scope.where(id: @user.roles.select(:store_id))
       end
     end
   end

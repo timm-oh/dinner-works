@@ -13,3 +13,8 @@ normal:
   email: 'sample@example.com'
   admin: false
   confirmed_at: <%= Time.current %>
+
+store_admin:
+  email: 'store_admin@example.com'
+  admin: false
+  confirmed_at: <%= Time.current %>

@@ -1,19 +1,17 @@
-h1 Listing #{@store.name} products
-
-= form_with(url: reorder_admin_store_products_path(@store), scope: :products, data: { controller: 'form', action: 'dinnerWorks:sortable:onEnd->form#submit' }) do |form|
+h1 #{@store.name} products
+= link_to 'New Product', new_admin_store_product_path(@store)
+br
+br
+= form_with(url: reorder_admin_store_products_path(@store), local: true, scope: :products, data: { controller: 'form', action: 'dinnerWorks:sortable:onEnd->form#submit' }) do |form|
   ol data={ controller: 'sortable', 'sortable-handle': '.sort-handle' }
     - @products.each do |product|
-      li
-        div
+      li.mt-2
+        .box.columns
           = form.hidden_field :"ids", value: product.id, multiple: true
-          span.sort-handle
-          span = product.name
-          span = product.cost.format
-          span = product.description
-          span = link_to 'Show', [:admin, @store, product]
-          span = link_to 'Edit', [:edit, :admin, @store, product]
-          span = link_to 'Destroy', admin_store_product_path(@store, product), data: { confirm: 'Are you sure?' }, method: :delete
-
-br
-
-= link_to 'New Product', new_admin_store_product_path(@store)
+          .column.is-narrow.sort-handle
+          .column = product.name
+          .column = product.cost.format
+          .column
+            = link_to 'Show', [:admin, @store, product]
+            = link_to 'Edit', [:edit, :admin, @store, product], class: 'ml-2'
+            = link_to 'Destroy', admin_store_product_path(@store, product), data: { confirm: 'Are you sure?' }, method: :delete, class: 'ml-2'

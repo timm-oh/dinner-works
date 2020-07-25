@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
 
   namespace :admin do
+    root to: 'application#home'
     resources :stores do
       resources :products do
         post :reorder, on: :collection
       end
+      resources :roles, except: [:edit, :update]
     end
   end
 

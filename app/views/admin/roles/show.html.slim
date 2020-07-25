@@ -1,0 +1,15 @@
+p#notice = notice
+
+p
+  strong User:
+  = @role.user
+p
+  strong Email:
+  = @role.email
+p
+  strong Invited By:
+  = @role.invited_by.email
+
+/ => link_to 'Edit', [:edit, :admin, @store, @role]
+/ '|
+=< link_to 'Back', admin_store_roles_path(@store)
