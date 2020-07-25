@@ -27,6 +27,10 @@ class ProductPolicy < ApplicationPolicy
     @user.admin?
   end
 
+  def reorder?
+    @user.admin?
+  end
+
   class Scope < Scope
     def resolve
       if @user.admin?

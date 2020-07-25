@@ -4,7 +4,7 @@ module Admin
     before_action :set_product, only: [:show, :edit, :update, :destroy]
 
     def index
-      @products = @store.products.all
+      @products = @store.products.all.ordered_by_position
     end
 
     def show
@@ -39,7 +39,20 @@ module Admin
 
     def destroy
       @product.destroy
-      redirect_to admin_store_products_url(@store), notice: 'Product was successfully destroyed.'
+      redirect_to admin_store_products_path(@store), notice: 'Product was successfully destroyed.'
+    end
+
+    def reorder
+      ids = products_params.fetch(:ids)
+      @products = policy_scope(@store.products).where(id: ids)
+      authorize @products
+
+      @products.find_each do |product|
+        position = ids.index(product.id)
+        product.update_columns(position: position, updated_at: Time.current)
+      end
+
+      redirect_to admin_store_products_path(@store), notice: 'Successfully updated product positions'
     end
 
     private
@@ -55,6 +68,10 @@ module Admin
 
     def product_params
       params.require(:product).permit(:name, :description, :cost)
+    end
+
+    def products_params
+      params.require(:products).permit(ids: [])
     end
   end
 end

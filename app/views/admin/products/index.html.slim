@@ -1,16 +1,18 @@
 h1 Listing #{@store.name} products
 
-ol data={ controller: 'sortable', 'sortable-handle': '.sort-handle' }
-  - @products.each do |product|
-    li
-      div
-        span.sort-handle
-        span = product.name
-        span = product.cost.format
-        span = product.description
-        span = link_to 'Show', [:admin, @store, product]
-        span = link_to 'Edit', [:edit, :admin, @store, product]
-        span = link_to 'Destroy', admin_store_product_path(@store, product), data: { confirm: 'Are you sure?' }, method: :delete
+= form_with(url: reorder_admin_store_products_path(@store), scope: :products, data: { controller: 'form', action: 'dinnerWorks:sortable:onEnd->form#submit' }) do |form|
+  ol data={ controller: 'sortable', 'sortable-handle': '.sort-handle' }
+    - @products.each do |product|
+      li
+        div
+          = form.hidden_field :"ids", value: product.id, multiple: true
+          span.sort-handle
+          span = product.name
+          span = product.cost.format
+          span = product.description
+          span = link_to 'Show', [:admin, @store, product]
+          span = link_to 'Edit', [:edit, :admin, @store, product]
+          span = link_to 'Destroy', admin_store_product_path(@store, product), data: { confirm: 'Are you sure?' }, method: :delete
 
 br
 

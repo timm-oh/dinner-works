@@ -13,7 +13,7 @@ export default class extends Controller {
     this.sortableList = Sortable.create(this.element, {
       handle: this.handleClass,
       onEnd: (event) => {
-        Rails.fire(event.item, 'sortable:onEnd')
+        Rails.fire(event.item, 'dinnerWorks:sortable:onEnd')
       }
     })
   }
