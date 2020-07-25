@@ -1,6 +1,6 @@
 h1 Listing #{@store.name} products
 
-= form_with(url: reorder_admin_store_products_path(@store), scope: :products) do |form|
+= form_with(url: reorder_admin_store_products_path(@store), scope: :products, data: { controller: 'form', action: 'dinnerWorks:sortable:onEnd->form#submit' }) do |form|
   ol data={ controller: 'sortable', 'sortable-handle': '.sort-handle' }
     - @products.each do |product|
       li
