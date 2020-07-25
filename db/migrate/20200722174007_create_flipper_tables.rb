@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateFlipperTables < ActiveRecord::Migration[6.0]
   def self.up
     create_table :flipper_features do |t|

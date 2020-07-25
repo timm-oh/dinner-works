@@ -7,6 +7,6 @@ p
 p
   strong Cost:
   = @product.cost.format
-=> link_to 'Edit', edit_admin_product_path(@product)
+=> link_to 'Edit', [:edit, :admin, @store, @product]
 '|
 =< link_to 'Back', admin_store_products_path(@product.store)

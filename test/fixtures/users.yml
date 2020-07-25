@@ -7,7 +7,9 @@
 admin:
   email: 'tim.mccarthy@hey.com'
   admin: true
+  confirmed_at: <%= Time.current %>
 
 normal:
   email: 'sample@example.com'
   admin: false
+  confirmed_at: <%= Time.current %>
