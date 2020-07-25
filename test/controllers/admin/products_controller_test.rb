@@ -22,7 +22,7 @@ module Admin
         assert_response :success
       end
 
-      test "should create admin_product" do
+      test "should create product" do
         assert_difference('Product.count') do
           post admin_store_products_url(@store), params: {
             product: {
@@ -34,7 +34,7 @@ module Admin
         assert_redirected_to admin_store_product_url(@store, Product.last)
       end
 
-      test "should show admin_product" do
+      test "should show product" do
         get admin_store_product_url(@store, @product)
         assert_response :success
       end
@@ -44,7 +44,7 @@ module Admin
         assert_response :success
       end
 
-      test "should update admin_product" do
+      test "should update product" do
         patch admin_store_product_url(@store, @product), params: {
           product: {
             name: @product.name, cost: @product.cost, description: @product.description
@@ -53,12 +53,32 @@ module Admin
         assert_redirected_to admin_store_product_url(@store, @product)
       end
 
-      test "should destroy admin_product" do
+      test "should destroy product" do
         assert_difference('Product.count', -1) do
           delete admin_store_product_url(@store, @product)
         end
 
         assert_redirected_to admin_store_products_url(@store)
+      end
+
+      test "should reorder products" do
+        product_0 = products(:ordered_position_0)
+        product_1 = products(:ordered_position_1)
+        product_2 = products(:ordered_position_2)
+
+        post reorder_admin_store_products_url(@store), params: {
+          products: {
+            ids: [product_1.id, product_2.id, product_0.id]
+          }
+        }
+
+        product_0.reload
+        product_1.reload
+        product_2.reload
+
+        assert_equal 0, product_1.position
+        assert_equal 1, product_2.position
+        assert_equal 2, product_0.position
       end
     end
   end

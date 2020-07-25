@@ -2,7 +2,9 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :stores do
-      resources :products
+      resources :products do
+        post :reorder, on: :collection
+      end
     end
   end
 

@@ -12,6 +12,25 @@ burger:
 #
 coke:
   name: Coke
-  cost_cents: 12
+  cost_cents: 12.00
   store: two
 # column: value
+
+
+ordered_position_0:
+  name: Position 0
+  cost_cents: 12
+  store: one
+  position: 0
+
+ordered_position_1:
+  name: Position 1
+  cost_cents: 12
+  store: one
+  position: 1
+
+ordered_position_2:
+  name: Position 2
+  cost_cents: 12
+  store: one
+  position: 2
