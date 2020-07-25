@@ -121,8 +121,10 @@ ActiveRecord::Schema.define(version: 2020_07_25_151436) do
   end
 
   create_table "roles", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "user_id", null: false
+    t.uuid "user_id"
     t.uuid "store_id", null: false
+    t.uuid "invited_by_id", null: false
+    t.string "email", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["store_id"], name: "index_roles_on_store_id"

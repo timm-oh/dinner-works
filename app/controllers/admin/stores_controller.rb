@@ -5,6 +5,7 @@ module Admin
 
     def index
       @stores = policy_scope(Store).all
+      authorize @stores
     end
 
     def show

@@ -3,7 +3,11 @@
 store_one:
   user: store_admin
   store: one
+  email: 'storeadmin@example.com'
+  invited_by: admin
 
 store_two:
   user: store_admin
   store: two
+  email: 'storeadmin@example.com'
+  invited_by: admin

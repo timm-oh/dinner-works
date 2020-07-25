@@ -1,34 +1,26 @@
 class ProductPolicy < ApplicationPolicy
   def index?
-    @user.admin?
+    true
   end
 
   def show?
-    @user.admin?
+    true
   end
 
   def create?
-    @user.admin?
-  end
-
-  def new?
-    create?
+    true
   end
 
   def update?
-    @user.admin?
-  end
-
-  def edit?
-    update?
+    true
   end
 
   def destroy?
-    @user.admin?
+    true
   end
 
   def reorder?
-    @user.admin?
+    true
   end
 
   class Scope < Scope
@@ -36,7 +28,7 @@ class ProductPolicy < ApplicationPolicy
       if @user.admin?
         scope.all
       else
-        scope.none
+        scope.where(store: @user.stores)
       end
     end
   end

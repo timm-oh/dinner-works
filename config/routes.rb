@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       resources :products do
         post :reorder, on: :collection
       end
+      resources :roles, except: [:edit, :update]
     end
   end
 
