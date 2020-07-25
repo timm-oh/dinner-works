@@ -12,6 +12,7 @@ module Admin
 
     def new
       @product = @store.products.new
+      authorize @product
     end
 
     def edit
@@ -19,6 +20,7 @@ module Admin
 
     def create
       @product = @store.products.new(product_params)
+      authorize @product
 
       if @product.save
         redirect_to [:admin, @store, @product], notice: 'Product was successfully created.'
@@ -43,11 +45,12 @@ module Admin
     private
 
     def set_store
-      @store = Store.find(params[:store_id])
+      @store = policy_scope(Store).find(params[:store_id])
     end
 
     def set_product
-      @product = @store.products.find(params[:id])
+      @product = policy_scope(@store.products).find(params[:id])
+      authorize @product
     end
 
     def product_params

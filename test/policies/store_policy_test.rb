@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class StorePolicyTest < ActiveSupport::TestCase
-
   setup do
     @user = users(:admin)
   end
