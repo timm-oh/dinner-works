@@ -1,6 +1,7 @@
 module Admin
   class StoresController < ApplicationController
     before_action :set_store, only: [:show, :edit, :update, :destroy]
+    skip_after_action :verify_policy_scoped, only: [:create, :new]
 
     def index
       @stores = policy_scope(Store).all

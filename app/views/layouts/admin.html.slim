@@ -1,33 +1,43 @@
 = render 'layouts/base' do
-  .notice = notice
-  .alert = alert
-  .columns
-    .column.is-2.is-sidebar-menu
-      aside.menu
-        - if current_user.admin?
-          p.menu-label
-            | Admin
-          ul.menu-list
-            li
-              = link_to "New Store", new_admin_store_path, class: "#{current_page?(new_admin_store_path) ? 'is-active' : ''}"
-          ul.menu-list
-            li
-              = link_to "All Stores", admin_stores_path, class: "#{current_page?(admin_stores_path) ? 'is-active' : ''}"
-        - if @store && @store.persisted?
-          p.menu-label
-            | #{@store.name}
-          ul.menu-list
-            li
-              = link_to "Dashboard", admin_store_path(@store), class: "#{current_page?(admin_store_path(@store)) ? 'is-active' : ''}"
-            li
-              = link_to "Products", admin_store_products_path(@store), class: "#{current_page?(admin_store_products_path(@store)) ? 'is-active' : ''}"
-            li
-              = link_to "Settings", edit_admin_store_path(@store), class: "#{current_page?(edit_admin_store_path(@store)) ? 'is-active' : ''}"
-            / li
-            /   a Customers
-            / li
-            /   a Orders
-            / li
-            /   a Settlements
-    .column.is-main-content
-      = yield
+  .container.is-fullheight
+    .notice = notice
+    .alert = alert
+    .columns
+      .column.is-3.is-hidden-mobile
+        aside.menu
+          - if current_user.admin?
+            p.menu-label
+              | Admin
+            ul.menu-list
+              li
+                = link_to "New Store", new_admin_store_path, class: "#{current_page?(new_admin_store_path) ? 'is-active' : ''}"
+            ul.menu-list
+              li
+                = link_to "All Stores", admin_stores_path, class: "#{current_page?(admin_stores_path) ? 'is-active' : ''}"
+          - if @store && @store.persisted?
+            p.menu-label
+              | General
+            ul.menu-list
+              li
+                = link_to "Dashboard", admin_store_path(@store), class: "#{current_page?(admin_store_path(@store)) ? 'is-active' : ''}"
+              li
+                = link_to "Menu", admin_store_products_path(@store), class: "#{current_page?(admin_store_products_path(@store)) ? 'is-active' : ''}"
+              li
+                = link_to "Settings", edit_admin_store_path(@store), class: "#{current_page?(edit_admin_store_path(@store)) ? 'is-active' : ''}"
+            p.menu-label
+              | Transactions
+            ul.menu-list
+              li
+                a Orders
+              li
+                a Payments
+              li
+                a Settlements
+              / li
+              /   a Customers
+              / li
+              /   a Orders
+              / li
+              /   a Settlements
+      .column.is-9
+        = yield
