@@ -47,13 +47,13 @@ class CreateRoleTest < ActiveSupport::TestCase
     role = roles(:store_one)
 
     assert_no_difference 'User.count' do
-      role = assert_no_difference 'Role.count' do
+      existing_role = assert_no_difference 'Role.count' do
         CreateRole.call(email: role.email, store: role.store, invited_by: @invited_by)
       end
       assert_emails 0
       # assert_enqueued_email_with RoleMailer, :invitation, args: role
-      assert role.errors.any?
-      assert role.is_a?(Role)
+      assert existing_role.errors.any?
+      assert existing_role.is_a?(Role)
     end
   end
 end
