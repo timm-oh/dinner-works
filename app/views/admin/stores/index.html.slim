@@ -14,6 +14,12 @@ table
       tr
         td = store.name
         td = store.location
-        td = link_to 'Show', [:admin, store]
-        td = link_to 'Edit', edit_admin_store_path(store)
-        td = link_to 'Destroy', [:admin, store], data: { confirm: 'Are you sure?' }, method: :delete
+        td
+          - if policy(store).show?
+            = link_to 'Show', [:admin, store]
+        td
+          - if policy(store).edit?
+            = link_to 'Edit', edit_admin_store_path(store)
+        td
+          - if policy(store).destroy?
+            = link_to 'Destroy', [:admin, store], data: { confirm: 'Are you sure?' }, method: :delete

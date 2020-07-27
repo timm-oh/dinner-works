@@ -6,10 +6,18 @@ class Role < ApplicationRecord
 
   before_validation -> { self.email = self.email.strip }
 
-
   validates :store, :email, :invited_by, presence: true
   validates :email, format: { with: Devise.email_regexp }, uniqueness: { scope: :store }
   validate :validate_email
+
+  before_create -> { self.user = User.find_by(email: email) }
+
+  scope :unaccepted, -> { where(user: nil) }
+
+  def accept!(user)
+    return unless user.email == email
+    update!(user: user)
+  end
 
   private
 

@@ -31,3 +31,9 @@
 
 en:
   hello: "Hello world"
+  registration_mailer:
+    welcome:
+      subject: 'Hi 👋'
+  role_mailer:
+    invitation:
+      subject: "You're invited! 🎉"

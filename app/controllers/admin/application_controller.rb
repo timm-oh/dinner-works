@@ -1,10 +1,10 @@
 module Admin
   class ApplicationController < ::ApplicationController
-    layout 'admin'
-
     before_action do
       raise ActionController::RoutingError.new('Not Found') unless FeatureFlags[:admin_portal].enabled?
     end
+
+    layout 'admin'
 
     # before_action :set_store
     after_action :verify_authorized, except: :index
@@ -13,8 +13,13 @@ module Admin
     # after_action :update_last_visited_store
 
     def home
+      authorize :admin, :root?
       if current_user.admin?
+        skip_policy_scope
+        redirect_to admin_stores_path
       else
+        @stores = policy_scope(Store)
+        redirect_to admin_store_path(@stores.find_by(id: current_user.last_visited_store || @stores.first))
       end
     end
 
