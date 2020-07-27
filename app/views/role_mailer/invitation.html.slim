@@ -1,0 +1,5 @@
+= "Hey #{@role.email},"
+br
+br
+div You've been invited by #{@role.invited_by.email} to help out with their store #{@role.store.name} on #{link_to('dinner.works', root_url)}.
+div #{link_to("Click here", new_user_registration_url(email: @role.email))} to get started! 🥳

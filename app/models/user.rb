@@ -5,8 +5,12 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :confirmable
 
-  belongs_to :last_visited_store, class_name: 'Store'
+  belongs_to :last_visited_store, class_name: 'Store', optional: true
 
   has_many :roles
   has_many :stores, through: :roles
+
+  def to_s
+    email
+  end
 end

@@ -3,7 +3,7 @@ module Admin
     before_action :set_product, only: [:show, :edit, :update, :destroy]
 
     def index
-      @products = @store.products.all.ordered_by_position
+      @products = policy_scope(@store.products).ordered_by_position
       authorize @products
     end
 

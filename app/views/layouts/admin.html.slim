@@ -5,13 +5,13 @@
     .columns
       .column.is-3.is-hidden-mobile
         aside.menu
-          - if current_user.admin?
-            p.menu-label
-              | Admin
-            ul.menu-list
+          p.menu-label
+            | Admin
+          ul.menu-list
+            - if policy(Store).new?
               li
                 = render(Admin::Sidenav::MenuItemComponent.new(title: 'New Store', url: new_admin_store_path))
-            ul.menu-list
+            - if policy(Store).index?
               li
                 = render(Admin::Sidenav::MenuItemComponent.new(title: 'All Stores', url: admin_stores_path))
           - if @store && @store.persisted?
@@ -20,21 +20,24 @@
             ul.menu-list
               li
                 = render(Admin::Sidenav::MenuItemComponent.new(title: "Dashboard", url: admin_store_path(@store)))
-              li
-                = render(Admin::Sidenav::MenuItemComponent.new(title: "Menu", url: admin_store_products_path(@store)))
-              li
-                = render(Admin::Sidenav::MenuItemComponent.new(title: "Settings", url: edit_admin_store_path(@store)))
-              li
-                = render(Admin::Sidenav::MenuItemComponent.new(title: "Team members", url: admin_store_roles_path(@store)))
-            p.menu-label
-              | Transactions
-            ul.menu-list
-              li
-                a Orders
-              li
-                a Payments
-              li
-                a Settlements
+              - if policy(Product).index?
+                li
+                  = render(Admin::Sidenav::MenuItemComponent.new(title: "Menu", url: admin_store_products_path(@store)))
+              - if policy(Store).edit?
+                li
+                  = render(Admin::Sidenav::MenuItemComponent.new(title: "Settings", url: edit_admin_store_path(@store)))
+              - if policy(Role).index?
+                li
+                  = render(Admin::Sidenav::MenuItemComponent.new(title: "Team members", url: admin_store_roles_path(@store)))
+            / p.menu-label
+            /   | Transactions
+            / ul.menu-list
+            /   li
+            /     a Orders
+            /   li
+            /     a Payments
+            /   li
+            /     a Settlements
               / li
               /   a Customers
               / li

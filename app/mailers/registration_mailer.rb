@@ -4,6 +4,6 @@ class RegistrationMailer < ApplicationMailer
     @registration = params[:registration]
     @email = @registration.email
 
-    mail to: @email, subject: 'Hi 👋'
+    mail to: @email
   end
 end

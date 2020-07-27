@@ -33,6 +33,7 @@ html lang="#{I18n.locale}"
                   = link_to new_user_session_path, class: 'button is-light' do
                     | Log in
                 - else
+                  span Logged in as #{current_user.email}
                   = link_to destroy_user_session_path, method: :delete, class: 'button is-primary' do
                     | Log out
 

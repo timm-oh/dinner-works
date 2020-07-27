@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'invitations/:id', to: 'invitations#show', as: 'invitation'
+
   namespace :admin do
     root to: 'application#home'
     resources :stores do
@@ -11,7 +13,7 @@ Rails.application.routes.draw do
   end
 
   root to: 'registrations#new'
-  get 'home/index'
+  get 'home', to: 'home#index'
 
   devise_for :users
 
