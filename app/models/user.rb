@@ -9,4 +9,8 @@ class User < ApplicationRecord
 
   has_many :roles
   has_many :stores, through: :roles
+
+  def to_s
+    email
+  end
 end

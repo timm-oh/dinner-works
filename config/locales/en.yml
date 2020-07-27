@@ -37,3 +37,5 @@ en:
   role_mailer:
     invitation:
       subject: "You're invited! 🎉"
+    notify:
+      subject: "You're in! 🎉"

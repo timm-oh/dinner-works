@@ -5,9 +5,18 @@ class RoleMailer < ApplicationMailer
   #
   #   en.role_mailer.invitation.subject
   #
-  def invitation
-    @role = params[:role]
 
+  before_action do
+    @role = params[:role]
+  end
+
+  def invitation
     mail to: @role.email
+  end
+
+  def notify
+    @user = @role.user
+    @store = @role.store
+    mail to: @user.email
   end
 end

@@ -3,7 +3,7 @@ module Admin
     before_action :set_role, only: [:show, :edit, :update, :destroy]
 
     def index
-      @roles = policy_scope(Role).all.includes(:user)
+      @roles = policy_scope(@store.roles).all.includes(:user)
       authorize @roles
     end
 
@@ -19,13 +19,13 @@ module Admin
     # end
 
     def create
-      @role = @store.roles.new(role_params.merge(invited_by: current_user))
-      authorize @role
+      authorize @store.roles
+      @role = ::CreateRole.call(email: role_params[:email], invited_by: current_user, store: @store)
 
-      if @role.save
-        redirect_to [:admin, @store, @role], notice: 'Role was successfully created.'
-      else
+      if @role.errors.any?
         render :new
+      else
+        redirect_to [:admin, @store, @role], notice: 'Role was successfully created.'
       end
     end
 
