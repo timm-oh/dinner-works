@@ -34,7 +34,7 @@ gem "flipper-active_record", "~> 0.18.0"
 gem "flipper-ui", "~> 0.18.0"
 
 # User Tracking
-gem "field_test", "~> 0.3.2"
+gem "field_test", "~> 0.4.0"
 
 # Application Tools
 gem "sentry-raven", "~> 3.0"

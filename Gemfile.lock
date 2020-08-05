@@ -99,7 +99,7 @@ GEM
     erubi (1.9.0)
     faraday (1.0.1)
       multipart-post (>= 1.2, < 3)
-    field_test (0.3.2)
+    field_test (0.4.0)
       activerecord (>= 5)
       browser (>= 2.0)
       distribution
@@ -267,7 +267,7 @@ DEPENDENCIES
   bullet (~> 6.1)
   capybara (>= 2.15)
   devise (~> 4.7)
-  field_test (~> 0.3.2)
+  field_test (~> 0.4.0)
   flipper (~> 0.18.0)
   flipper-active_record (~> 0.18.0)
   flipper-ui (~> 0.18.0)
