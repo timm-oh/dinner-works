@@ -63,6 +63,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem "money-rails", "~> 1.13"
 
-gem "blazer", "~> 2.2"
+gem "blazer", "~> 2.6"
 
 gem "view_component", "~> 2.17"
